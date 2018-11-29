@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../config/ehcache.xsd">
+
+	<!-- <diskStore>元素：指定一个文件目录，当指定的内存不够时，把数据写到硬盘上时，将把数据写到这个文件目录下。
+         user.home – 用户主目录    
+         user.dir      – 用户当前工作目录   
+         java.io.tmpdir – 默认临时文件路径  -->
+	<diskStore path="user.dir\ehcache"/>
+
+	<!-- 默认的Cache配置。用来实现CacheManager.add(String cacheName)创建的缓存 -->
+	<defaultCache maxElementsInMemory="10000" eternal="false"
+		timeToIdleSeconds="120" timeToLiveSeconds="120" overflowToDisk="true"
+		maxElementsOnDisk="1000000" diskPersistent="false"
+		diskExpiryThreadIntervalSeconds="120" memoryStoreEvictionPolicy="LRU">
+		
+	</defaultCache>
+	
+	<cache name="org.hibernate.cache.StandardQueryCache"
+        maxElementsInMemory="5" eternal="true" timeToLiveSeconds="0"
+        overflowToDisk="true" />
+
+    <cache name="org.hibernate.cache.UpdateTimestampsCache"
+        maxElementsInMemory="5000" eternal="true" overflowToDisk="true" />
+		
+		<!-- 
+		name:cache唯一标识，通常为缓存对象的类名（非严格标准），如果为实体对象的包名称.类名称（如com.db.entity.User）时，那么实体的配置中可以省去<cache usage="read-write" region="regionName"/> 属性的配置。如果不存在与类名匹配的cache名称, 则用 defaultCache。如果类中包含set
+　　　　eternal：缓存是否永久有效 
+　　　　maxElementsInMemory：基于内存的缓存可存放对象的最大数目
+　　　　maxElementsOnDisk：基于硬盘的缓存可存放对象的最大数目
+　　　　overflowToDisk(true,false)：缓存对象达到最大数后，将缓存写到硬盘中 
+　　　　diskPersistent：硬盘持久化。指重启JVM后，数据是否存在。默认为false。
+　　　　timeToIdleSeconds：设定允许对象处于空闲状态的最长时间，以秒为单位。
+　　　　timeToLiveSeconds：设定对象允许存在于缓存中的最长时间，以秒为单位。
+　　　　diskExpiryThreadIntervalSeconds：对象检测线程运行时间间隔。标识对象状态的线程多长时间运行一次。
+　　　　diskSpoolBufferSizeMB：DiskStore使用的磁盘大小，默认值30MB。每个cache使用各自的DiskStore。
+　　　　memoryStoreEvictionPolicy：缓存清空策略 
+　　　　　　　　1.FIFO：first in first out 先讲先出 
+　　　　　　　　2.LFU： Less Frequently Used 一直以来最少被使用的
+　　　　　　　　3.LRU：Least Recently Userd 最近最少被使用
+		 -->
+</ehcache>

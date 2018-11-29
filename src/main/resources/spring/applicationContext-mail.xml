@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<description>JavaMail的配置文件</description>
+
+	<!-- 简单消息对象创建 -->
+	<bean id="mailMessage" class="org.springframework.mail.SimpleMailMessage">
+		<property name="from" value="${mail.from}"></property>
+	</bean>
+
+	<!-- 2.创建发送器 -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${mail.host}"></property>
+		<property name="username" value="${mail.username}"></property>
+		<property name="password" value="${mail.password}"></property>
+		<property name="defaultEncoding" value="UTF-8"></property>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">${mail.smtp.auth}</prop>
+				<prop key="mail.debug">${mail.debug}</prop>
+				<prop key="mail.smtp.timeout">${mail.smtp.timeout}</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- velocity配置 -->
+	<bean id="velocityEngine"
+		class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+		<property name="velocityProperties">
+			<props>
+				<prop key="resource.loader">class</prop>
+				<prop key="class.resource.loader.class">
+					org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+				</prop>
+				<prop key="velocimacro.library"></prop>
+				<prop key="input.encoding">UTF-8</prop>
+				<prop key="output.encoding">UTF-8</prop>
+				<prop key="default.contentType">text/html; charset=UTF-8</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="freeMarkerConfiguration"
+		class="org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean">
+		<property name="templateLoaderPath" value="/WEB-INF/mailTemplete/freeMarker"></property>
+		<!-- 设置FreeMarker环境变量 -->
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="default_encoding">UTF-8</prop>
+			</props>
+		</property>
+	</bean>
+
+</beans>
