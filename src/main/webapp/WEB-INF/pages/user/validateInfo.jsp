@@ -33,7 +33,7 @@
 			},function(requestData){//service 传过来是map类型
 				if (requestData.updateRes=='ok') {
 					alert('密码修改成功!');
-					backIndex;
+					backIndex();
 				} else {
 					alert('密码修改失败,请联系系统管理员!');					
 				}
