@@ -32,7 +32,7 @@
 				password:newPassword
 			},function(requestData){//service 传过来是map类型
 				if (requestData.updateRes=='ok') {
-					alert('密码修改成功!');
+					alert('密码修改成功!返回登录');
 					backIndex();
 				} else {
 					alert('密码修改失败,请联系系统管理员!');					
@@ -43,7 +43,7 @@
 		function backIndex(){
 			setTimeout(function(){
 				window.location.href='${ctx}/';
-			}, 1500);
+			}, 200);
 		}
 	});
 	
@@ -80,8 +80,14 @@
 			</form>
 		</c:when>
 		<c:otherwise>
-			<font size="7" color="#ff000">*${validateRes}</font><br>
-			<a href="${ctx }/">返回登录</a>
+			<font size="7" color="#ff000">*${validateRes}2秒后返回首页</font><br>
+			<script type="text/javascript">
+				$(function(){
+					setTimeout(function(){
+						window.location.href='${pageContext.request.contextPath }/';
+					}, 2000);
+				});
+			</script>
 		</c:otherwise>
 	</c:choose>
 </div>
