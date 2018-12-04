@@ -57,12 +57,12 @@
 </head>
 <body>
 <%
-// 	 HttpSession currentSession = request.getSession();
-// 	if (currentSession != null){
-// 		if(currentSession.getAttribute("id") != null){
-// 			response.sendRedirect(request.getContextPath()+"/user/index");
-// 		}
-// 	} 
+	 HttpSession currentSession = request.getSession();
+	if (currentSession != null){
+		if(currentSession.getAttribute("id") != null){
+			response.sendRedirect(request.getContextPath()+"/user/index");
+		}
+	} 
 %>
 
 <input type="hidden" id="serverUrl" value="${pageContext.request.contextPath}" />

@@ -29,7 +29,8 @@
 	
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/**"/>
+			<mvc:mapping path="/user/index"/>
+			<mvc:mapping path="/user/logout"/>
 			<bean class="com.ssh.interceptor.LoginInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
